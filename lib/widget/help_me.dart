@@ -282,9 +282,9 @@ class _HelpMeState extends State<HelpMe> {
         email +
         DateFormat('_yyyy-MM-dd_HH-mm-ss').format(DateTime.now()) +
         '.jpg';
-    StorageReference reference = FirebaseStorage.instance.ref().child(filename);
-    StorageUploadTask task = reference.putFile(_image);
-    String urlAvatar = await (await task.onComplete).ref.getDownloadURL();
+    Reference reference = FirebaseStorage.instance.ref().child(filename);
+    UploadTask task = reference.putFile(_image);
+    String urlAvatar = await (await task).ref.getDownloadURL();
     print('urlAvatar = $urlAvatar');
     Map<String, dynamic> userdata = Map();
     userdata['UrlAvatar'] = urlAvatar;

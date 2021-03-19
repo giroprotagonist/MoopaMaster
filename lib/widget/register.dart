@@ -294,10 +294,10 @@ class _RegisterState extends State<Register> {
           .then((value) async {
         String uid = value.user.uid;
         print('uid ==>> $uid');
-        StorageReference reference =
+        Reference reference =
             FirebaseStorage.instance.ref().child('Avartar/$uid.jpg');
-        StorageUploadTask task = reference.putFile(file);
-        String urlAvatar = await (await task.onComplete).ref.getDownloadURL();
+        UploadTask task = reference.putFile(file);
+        String urlAvatar = await (await task).ref.getDownloadURL();
         print('urlAvatar = $urlAvatar');
         Map<String, dynamic> typeData = Map();
         typeData['Type'] = type;
