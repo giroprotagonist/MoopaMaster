@@ -28,20 +28,6 @@ class _MainSOSState extends State<MainSOS> {
     checkHelpMeList();
     timer =
         Timer.periodic(Duration(seconds: 5), (Timer t) => checkHelpMeList());
-    // Future.delayed(Duration(milliseconds: 0), () async {
-    //   if (list != null && list.isNotEmpty) {
-    //     final GoogleMapController controller = await _controller.future;
-    //     controller.animateCamera(
-    //       CameraUpdate.newCameraPosition(
-    //         CameraPosition(
-    //           target: LatLng(list['Latittude'], list['Longittude']),
-    //           // zoom: 14.4746,
-    //           zoom: 19,
-    //         ),
-    //       ),
-    //     );
-    //   }
-    // });
   }
 
   @override
@@ -119,18 +105,6 @@ class _MainSOSState extends State<MainSOS> {
         child: MyStyle().mySignOut(context),
       ),
 
-      // body: ListView(
-      //   children: <Widget>[
-      //     GestureDetector(
-      //         onTap: () => Navigator.push(
-      //             context, MaterialPageRoute(builder: (_) => SOSDetail())),
-      //         child: ListTile(
-      //           title: Text('คำร้องตัวอย่าง'),
-      //           trailing: Icon(Icons.remove_red_eye),
-      //         )),
-      //   ],
-      // ),
-
       body: list != null && list!.length > 0
           ? ListView.builder(
               itemCount: list!.length,
@@ -140,8 +114,8 @@ class _MainSOSState extends State<MainSOS> {
                   title: Text('${data['Email']}'),
                   subtitle: Text('status: ' +
                       (data['Status'] == 0
-                          ? 'งานใหม่'
-                          : (data['Status'] == 1 ? 'รับงานแล้ว' : 'ERR.')) +
+                          ? 'New Job'
+                          : (data['Status'] == 1 ? 'Accepted' : 'ERR.')) +
                       '\n' +
                       '${data['Latitude']}   ${data['Longittude']}'),
                   isThreeLine: true,
@@ -162,54 +136,6 @@ class _MainSOSState extends State<MainSOS> {
                 );
               })
           : Text('no LIST'),
-
-      // body: (list != null && list.isNotEmpty)
-      //     ? Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         children: [
-      //           Text(
-      //             'มีการแจ้ง\n' +
-      //                 'lat:${list['Latitude']} lng:${list['Longittude']}\n' +
-      //                 'สถานะ : ' +
-      //                 (list['Status'] == 0
-      //                     ? 'งานใหม่'
-      //                     : (list['Status'] == 1 ? 'รับงานแล้ว' : 'ERR.')),
-      //             textAlign: TextAlign.center,
-      //           ),
-      //           Container(
-      //             height: 600,
-      //             child: GoogleMap(
-      //               mapType: MapType.normal,
-      //               initialCameraPosition: CameraPosition(
-      //                 target: LatLng(list['Latitude'], list['Longittude']),
-      //                 zoom: 15,
-      //               ),
-      //               onMapCreated: (GoogleMapController controller) {
-      //                 _controller.complete(controller);
-      //               },
-      //               markers: <Marker>[
-      //                 Marker(
-      //                   markerId: MarkerId("marker_1"),
-      //                   position: LatLng(list['Latitude'], list['Longittude']),
-      //                 ),
-      //                 (list['HelperLat'] != null && list['HelperLong'] != null
-      //                     ? Marker(
-      //                         markerId: MarkerId("marker_2"),
-      //                         icon: BitmapDescriptor.defaultMarkerWithHue(
-      //                             BitmapDescriptor.hueBlue),
-      //                         position:
-      //                             LatLng(list['HelperLat'], list['HelperLong']),
-      //                       )
-      //                     : Marker(
-      //                         markerId: MarkerId("marker_2"),
-      //                         position: LatLng(1, 1),
-      //                       )),
-      //               ].toSet(),
-      //             ),
-      //           ),
-      //         ],
-      //       )
-      //     : Text('no LIST'),
     );
   }
 }
