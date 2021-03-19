@@ -13,7 +13,7 @@ class Authen extends StatefulWidget {
 }
 
 class _AuthenState extends State<Authen> {
-  String user, password;
+  String? user, password;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _AuthenState extends State<Authen> {
               .doc(event.uid)
               .snapshots()
               .listen((event) {
-            String type = event.data()['Type'];
+            String? type = event.data()!['Type'];
             print('type = $type');
             routeToService(type);
           });
@@ -40,7 +40,7 @@ class _AuthenState extends State<Authen> {
     });
   }
 
-  void routeToService(String type) {
+  void routeToService(String? type) {
     switch (type) {
       case 'User':
         Navigator.pushAndRemoveUntil(
@@ -134,9 +134,9 @@ class _AuthenState extends State<Authen> {
       child: ElevatedButton(
         onPressed: () {
           if (user == null ||
-              user.isEmpty ||
+              user!.isEmpty ||
               password == null ||
-              password.isEmpty) {
+              password!.isEmpty) {
             normalDialod(context, 'Have Space ? Please Fill Every Blank');
           } else {
             checkAuthen();
@@ -155,15 +155,15 @@ class _AuthenState extends State<Authen> {
   Future<Null> checkAuthen() async {
     await Firebase.initializeApp().then((value) async {
       await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: user, password: password)
+          .signInWithEmailAndPassword(email: user!, password: password!)
           .then((value) async {
-        String uid = value.user.uid;
+        String uid = value.user!.uid;
         FirebaseFirestore.instance
             .collection('Type')
             .doc(uid)
             .snapshots()
             .listen((event) {
-          String type = event.data()['Type'];
+          String? type = event.data()!['Type'];
 
           routeToService(type);
         });

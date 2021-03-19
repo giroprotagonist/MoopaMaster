@@ -24,7 +24,7 @@ class _HelpMeState extends State<HelpMe> {
   TextEditingController emailController = TextEditingController();
   TextEditingController telephoneController = TextEditingController();
 
-  File _image;
+  File? _image;
   final picker = ImagePicker();
 
   List<ListItem> _dropdownItems = [
@@ -41,8 +41,8 @@ class _HelpMeState extends State<HelpMe> {
     ListItem(10, "อื่นๆ"),
   ];
 
-  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-  ListItem _selectedItem;
+  List<DropdownMenuItem<ListItem>>? _dropdownMenuItems;
+  ListItem? _selectedItem;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -51,7 +51,7 @@ class _HelpMeState extends State<HelpMe> {
   void initState() {
     super.initState();
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
-    _selectedItem = _dropdownMenuItems[1].value; //*** TouYunG
+    _selectedItem = _dropdownMenuItems![1].value; //*** TouYunG
     telephoneController.text = '1234567890'; //*** TouYunG
     getLocation();
   }
@@ -113,7 +113,7 @@ class _HelpMeState extends State<HelpMe> {
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(user.latittude, user.longittude),
+          target: LatLng(user.latittude!, user.longittude!),
           // zoom: 14.4746,
           zoom: 19,
         ),
@@ -136,14 +136,14 @@ class _HelpMeState extends State<HelpMe> {
               initialValue: user.userEmail,
               // controller: emailController,
               validator: (value) {
-                String message;
+                String? message;
                 if (value == null || value.isEmpty) {
                   message = 'ต้องการข้อมูล';
                 }
                 return message;
               },
               onSaved: (value) => user.setEmail(
-                value.trim(),
+                value!.trim(),
               ),
             ),
             Text('Tel:'),
@@ -151,13 +151,13 @@ class _HelpMeState extends State<HelpMe> {
               keyboardType: TextInputType.phone,
               controller: telephoneController,
               validator: (value) {
-                String message;
+                String? message;
                 if (value == null || value.isEmpty) {
                   message = 'ต้องการข้อมูล';
                 }
                 return message;
               },
-              onSaved: (value) => user.setTelephone(value.trim()),
+              onSaved: (value) => user.setTelephone(value!.trim()),
             ),
             Text('Real Pic:'),
             Row(
@@ -180,7 +180,7 @@ class _HelpMeState extends State<HelpMe> {
                 color: Colors.white,
                 child: _image == null
                     ? Text('No image selected.')
-                    : Image.file(_image),
+                    : Image.file(_image!),
               ),
             ),
             Container(
@@ -229,7 +229,7 @@ class _HelpMeState extends State<HelpMe> {
               child: GoogleMap(
                 mapType: MapType.normal,
                 initialCameraPosition: CameraPosition(
-                  target: LatLng(user.latittude, user.longittude),
+                  target: LatLng(user.latittude!, user.longittude!),
                   zoom: 14.4746,
                 ),
                 onMapCreated: (GoogleMapController controller) {
@@ -238,7 +238,7 @@ class _HelpMeState extends State<HelpMe> {
                 markers: <Marker>[
                   Marker(
                     markerId: MarkerId("marker_1"),
-                    position: LatLng(user.latittude, user.longittude),
+                    position: LatLng(user.latittude!, user.longittude!),
                   ),
                 ].toSet(),
               ),
@@ -251,7 +251,7 @@ class _HelpMeState extends State<HelpMe> {
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
     List<DropdownMenuItem<ListItem>> items = [];
-    for (ListItem listItem in listItems) {
+    for (ListItem listItem in listItems as Iterable<ListItem>) {
       items.add(
         DropdownMenuItem(
           child: Text(
@@ -266,8 +266,8 @@ class _HelpMeState extends State<HelpMe> {
   }
 
   void validate() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
       registerHelpMe();
     }
   }
@@ -276,21 +276,21 @@ class _HelpMeState extends State<HelpMe> {
     final user = ScopedModel.of<AppModel>(context, rebuildOnChange: false);
     print('user : ${user.userEmail} ${user.latittude} ${user.longittude}');
 
-    String email = user.userEmail;
+    String email = user.userEmail!;
     print('userEmail ==>> ${user.userEmail}');
     String filename = 'HelpME/' +
         email +
         DateFormat('_yyyy-MM-dd_HH-mm-ss').format(DateTime.now()) +
         '.jpg';
     Reference reference = FirebaseStorage.instance.ref().child(filename);
-    UploadTask task = reference.putFile(_image);
+    UploadTask task = reference.putFile(_image!);
     String urlAvatar = await (await task).ref.getDownloadURL();
     print('urlAvatar = $urlAvatar');
     Map<String, dynamic> userdata = Map();
     userdata['UrlAvatar'] = urlAvatar;
     userdata['Email'] = email;
     userdata['Tel'] = telephoneController.text;
-    userdata['Group'] = _selectedItem.value;
+    userdata['Group'] = _selectedItem!.value;
     userdata['Latitude'] = user.latittude;
     userdata['Longittude'] = user.longittude;
     userdata['Status'] = 0;

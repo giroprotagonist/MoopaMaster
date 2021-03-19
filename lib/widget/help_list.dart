@@ -11,9 +11,9 @@ class HelpMeList extends StatefulWidget {
 }
 
 class _HelpMeListState extends State<HelpMeList> {
-  AppModel user;
-  Timer timer;
-  Map<String, dynamic> list;
+  late AppModel user;
+  Timer? timer;
+  Map<String, dynamic>? list;
   Completer<GoogleMapController> _controller = Completer();
 
   @override
@@ -24,12 +24,12 @@ class _HelpMeListState extends State<HelpMeList> {
     timer =
         Timer.periodic(Duration(seconds: 5), (Timer t) => checkHelpMeList());
     Future.delayed(Duration(milliseconds: 0), () async {
-      if (list != null && list.isNotEmpty) {
+      if (list != null && list!.isNotEmpty) {
         final GoogleMapController controller = await _controller.future;
         controller.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(
-              target: LatLng(list['Latittude'], list['Longittude']),
+              target: LatLng(list!['Latittude'], list!['Longittude']),
               // zoom: 14.4746,
               zoom: 19,
             ),
@@ -52,14 +52,14 @@ class _HelpMeListState extends State<HelpMeList> {
         .snapshots()
         .listen((event) {
       print(
-          'event : ${event.data()['Email']}, status:${event.data()['Status']}');
+          'event : ${event.data()!['Email']}, status:${event.data()!['Status']}');
       print(
-          'location : ${event.data()['Latitude']}  ${event.data()['Longittude']}');
+          'location : ${event.data()!['Latitude']}  ${event.data()!['Longittude']}');
       print(
-          'helper : ${event.data()['HelperLat']}  ${event.data()['HelperLong']}');
+          'helper : ${event.data()!['HelperLat']}  ${event.data()!['HelperLong']}');
 
       if (event.exists) {
-        var data = event.data();
+        var data = event.data()!;
         if (data['Status'] < 9) {
           setState(() {
             list = event.data();
@@ -81,17 +81,17 @@ class _HelpMeListState extends State<HelpMeList> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: (list != null && list.isNotEmpty)
+        child: (list != null && list!.isNotEmpty)
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'มีการแจ้ง\n' +
-                        'lat:${list['Latitude']} lng:${list['Longittude']}\n' +
+                        'lat:${list!['Latitude']} lng:${list!['Longittude']}\n' +
                         'สถานะ : ' +
-                        (list['Status'] == 0
+                        (list!['Status'] == 0
                             ? 'งานใหม่'
-                            : (list['Status'] == 1 ? 'รับงานแล้ว' : 'ERR.')),
+                            : (list!['Status'] == 1 ? 'รับงานแล้ว' : 'ERR.')),
                     textAlign: TextAlign.center,
                   ),
                   Container(
@@ -99,7 +99,7 @@ class _HelpMeListState extends State<HelpMeList> {
                     child: GoogleMap(
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
-                        target: LatLng(list['Latitude'], list['Longittude']),
+                        target: LatLng(list!['Latitude'], list!['Longittude']),
                         zoom: 15,
                       ),
                       onMapCreated: (GoogleMapController controller) {
@@ -109,15 +109,15 @@ class _HelpMeListState extends State<HelpMeList> {
                         Marker(
                           markerId: MarkerId("marker_1"),
                           position:
-                              LatLng(list['Latitude'], list['Longittude']),
+                              LatLng(list!['Latitude'], list!['Longittude']),
                         ),
-                        (list['HelperLat'] != null && list['HelperLong'] != null
+                        (list!['HelperLat'] != null && list!['HelperLong'] != null
                             ? Marker(
                                 markerId: MarkerId("marker_2"),
                                 icon: BitmapDescriptor.defaultMarkerWithHue(
                                     BitmapDescriptor.hueBlue),
                                 position: LatLng(
-                                    list['HelperLat'], list['HelperLong']),
+                                    list!['HelperLat'], list!['HelperLong']),
                               )
                             : Marker(
                                 markerId: MarkerId("marker_2"),

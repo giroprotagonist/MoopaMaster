@@ -1,77 +1,77 @@
 import 'package:scoped_model/scoped_model.dart';
 
 class AppModel extends Model {
-  String _name = '';
+  String? _name = '';
 
-  String _lastname = '';
+  String? _lastname = '';
 
-  String _age = '';
+  String? _age = '';
 
-  String _birth = '';
+  String? _birth = '';
 
-  String _gender = '';
+  String? _gender = '';
 
-  String _email = '';
+  String? _email = '';
 
   String _telephone = '';
 
-  String _imageUrl = '';
+  String? _imageUrl = '';
 
-  double _latitude = 0.0;
+  double? _latitude = 0.0;
 
-  double _longtitude = 0.0;
+  double? _longtitude = 0.0;
 
-  String get username => _name;
+  String? get username => _name;
 
-  String get userLastname => _lastname;
+  String? get userLastname => _lastname;
 
-  String get userAge => _age;
+  String? get userAge => _age;
 
-  String get dateOfBirth => _birth;
+  String? get dateOfBirth => _birth;
 
-  String get userGender => _gender;
+  String? get userGender => _gender;
 
-  String get userEmail => _email;
+  String? get userEmail => _email;
 
   String get telephone => _telephone;
 
-  String get imageProfile => _imageUrl;
+  String? get imageProfile => _imageUrl;
 
-  double get latittude => _latitude;
+  double? get latittude => _latitude;
 
-  double get longittude => _longtitude;
+  double? get longittude => _longtitude;
 
-  void setName(String name) {
+  void setName(String? name) {
     this._name = name;
     notifyListeners();
   }
 
-  void setLastName(String lastname) {
+  void setLastName(String? lastname) {
     this._lastname = lastname;
     notifyListeners();
   }
 
-  void setAge(String age) {
+  void setAge(String? age) {
     this._age = age;
     notifyListeners();
   }
 
-  void setGender(String gender) {
+  void setGender(String? gender) {
     this._gender = gender;
     notifyListeners();
   }
 
-  void setBirth(String birth) {
+  void setBirth(String? birth) {
     this._birth = birth;
     notifyListeners();
   }
 
-  void setImage(String image) {
+  void setImage(String? image) {
     this._imageUrl = image;
     notifyListeners();
   }
 
-  void setEmail(String email) {
+  void setEmail(String? email) {
     this._email = email;
     notifyListeners();
   }
@@ -81,12 +81,12 @@ class AppModel extends Model {
     notifyListeners();
   }
 
-  void setLocationLat(double latitude) {
+  void setLocationLat(double? latitude) {
     this._latitude = latitude;
     notifyListeners();
   }
 
-  void setLocationLong(double longtitude) {
+  void setLocationLong(double? longtitude) {
     this._longtitude = longtitude;
     notifyListeners();
   }

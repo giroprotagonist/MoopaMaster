@@ -15,9 +15,9 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  File file;
+  File? file;
 
-  String urlAvatar,
+  String? urlAvatar,
       name,
       lastName,
       gender,
@@ -32,18 +32,18 @@ class _RegisterState extends State<Register> {
     ListItem("SOS", "SOS"),
   ];
 
-  List<DropdownMenuItem<ListItem>> _dropdownMenuItems;
-  ListItem _selectedItem;
+  List<DropdownMenuItem<ListItem>>? _dropdownMenuItems;
+  ListItem? _selectedItem;
 
   void initState() {
     super.initState();
     _dropdownMenuItems = buildDropDownMenuItems(_dropdownItems);
-    _selectedItem = _dropdownMenuItems[0].value;
+    _selectedItem = _dropdownMenuItems![0].value;
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
     List<DropdownMenuItem<ListItem>> items = [];
-    for (ListItem listItem in listItems) {
+    for (ListItem listItem in listItems as Iterable<ListItem>) {
       items.add(
         DropdownMenuItem(
           child: Text(
@@ -90,21 +90,21 @@ class _RegisterState extends State<Register> {
             if (file == null) {
               normalDialod(context, 'Please chose image');
             } else if (name == null ||
-                name.isEmpty ||
+                name!.isEmpty ||
                 lastName == null ||
-                lastName.isEmpty ||
+                lastName!.isEmpty ||
                 gender == null ||
-                gender.isEmpty ||
+                gender!.isEmpty ||
                 age == null ||
-                age.isEmpty ||
+                age!.isEmpty ||
                 birth == null ||
-                birth.isEmpty ||
+                birth!.isEmpty ||
                 email == null ||
-                email.isEmpty ||
+                email!.isEmpty ||
                 password == null ||
-                password.isEmpty ||
+                password!.isEmpty ||
                 type == null ||
-                type.isEmpty) {
+                type!.isEmpty) {
               normalDialod(context, 'Have space ? Please Fill Every Blank');
             } else {
               registerThread();
@@ -148,7 +148,7 @@ class _RegisterState extends State<Register> {
         maxHeight: 800,
       );
       setState(() {
-        file = File(result.path);
+        file = File(result!.path);
       });
     } catch (e) {}
   }
@@ -157,7 +157,7 @@ class _RegisterState extends State<Register> {
     return Container(
       width: 250,
       height: 250,
-      child: file == null ? Image.asset('images/avatar.png') : Image.file(file),
+      child: file == null ? Image.asset('images/avatar.png') : Image.file(file!),
     );
   }
 
@@ -271,7 +271,7 @@ class _RegisterState extends State<Register> {
         onChanged: (value) {
           setState(() {
             _selectedItem = value;
-            type = value.value.trim();
+            type = value!.value.trim();
           });
         },
       ),
@@ -290,13 +290,13 @@ class _RegisterState extends State<Register> {
     await Firebase.initializeApp().then((value) async {
       print('Connected Success');
       await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password)
+          .createUserWithEmailAndPassword(email: email!, password: password!)
           .then((value) async {
-        String uid = value.user.uid;
+        String uid = value.user!.uid;
         print('uid ==>> $uid');
         Reference reference =
             FirebaseStorage.instance.ref().child('Avartar/$uid.jpg');
-        UploadTask task = reference.putFile(file);
+        UploadTask task = reference.putFile(file!);
         String urlAvatar = await (await task).ref.getDownloadURL();
         print('urlAvatar = $urlAvatar');
         Map<String, dynamic> typeData = Map();

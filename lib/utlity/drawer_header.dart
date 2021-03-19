@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:tongmoopa/utlity/scoped_models/app_model.dart';
 
 class AppDrawerHeader extends StatelessWidget {
-  const AppDrawerHeader({Key key});
+  const AppDrawerHeader({Key? key});
 
   @override
   Widget build(BuildContext context) {

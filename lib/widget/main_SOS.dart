@@ -15,9 +15,9 @@ class MainSOS extends StatefulWidget {
 
 class _MainSOSState extends State<MainSOS> {
 
-  AppModel user;
-  Timer timer;
-  List<QueryDocumentSnapshot> list;
+  late AppModel user;
+  Timer? timer;
+  List<QueryDocumentSnapshot>? list;
   Completer<GoogleMapController> _controller = Completer();
 
   @override
@@ -59,7 +59,7 @@ class _MainSOSState extends State<MainSOS> {
         setState(() {
           list = querySnapshot.docs;
         });
-        print(list[0].data()['Email']);
+        print(list![0].data()!['Email']);
       } else {
         setState(() {
           list = null;
@@ -101,7 +101,7 @@ class _MainSOSState extends State<MainSOS> {
     controller.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
-          target: LatLng(user.latittude, user.longittude),
+          target: LatLng(user.latittude!, user.longittude!),
           // zoom: 14.4746,
           zoom: 19,
         ),
@@ -131,11 +131,11 @@ class _MainSOSState extends State<MainSOS> {
       //   ],
       // ),
 
-      body: list != null && list.length > 0
+      body: list != null && list!.length > 0
           ? ListView.builder(
-              itemCount: list.length,
+              itemCount: list!.length,
               itemBuilder: (ctx, idx) {
-                var data = list[idx].data();
+                var data = list![idx].data()!;
                 return ListTile(
                   title: Text('${data['Email']}'),
                   subtitle: Text('status: ' +
@@ -156,8 +156,6 @@ class _MainSOSState extends State<MainSOS> {
                         .doc(data['Email'])
                         .update(userdata)
                         .then((value) {
-                      var toast;
-                                            toast.show('รับงานเรียบร้อยแล้ว', context);
                       checkHelpMeList();
                     });
                   },

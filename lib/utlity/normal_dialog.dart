@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-Future<Null> normalDialod(BuildContext context, String string) async {
+Future<Null> normalDialod(BuildContext context, String? string) async {
   showDialog(
     context: context,
     builder: (context) => SimpleDialog(
-      title: Text(string),
+      title: Text(string!),
       children: [
         TextButton(
           onPressed: () => Navigator.pop(context),

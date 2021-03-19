@@ -23,7 +23,7 @@ class AdsRequest extends StatelessWidget {
             TextFormField(
               controller: nameController,
               validator: (value) {
-                String message;
+                String? message;
                 if (value == null || value.isEmpty) {
                   message = 'ต้องการข้อมูล';
                 }
@@ -36,7 +36,7 @@ class AdsRequest extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               controller: emailController,
               validator: (value) {
-                String message;
+                String? message;
                 if (value == null || value.isEmpty) {
                   message = 'ต้องการข้อมูล';
                 }
@@ -49,7 +49,7 @@ class AdsRequest extends StatelessWidget {
               keyboardType: TextInputType.phone,
               controller: telephoneController,
               validator: (value) {
-                String message;
+                String? message;
                 if (value == null || value.isEmpty) {
                   message = 'ต้องการข้อมูล';
                 }
@@ -63,7 +63,7 @@ class AdsRequest extends StatelessWidget {
               keyboardType: TextInputType.multiline,
               controller: messageController,
               validator: (value) {
-                String message;
+                String? message;
                 if (value == null || value.isEmpty) {
                   message = 'ต้องการข้อมูล';
                 }
@@ -78,8 +78,8 @@ class AdsRequest extends StatelessWidget {
   }
 
   void validate() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
     }
   }
 

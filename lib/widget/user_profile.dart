@@ -18,9 +18,9 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-  File file;
+  File? file;
   
-  String urlAvatar, name, lastName, gender, age, birth, email, password, type;
+  String? urlAvatar, name, lastName, gender, age, birth, email, password, type;
 
 
   @override
@@ -30,13 +30,13 @@ class _UserProfileState extends State<UserProfile> {
     await Firebase.initializeApp().then((value) async {
       print('Connected Success');
       await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password)
+          .createUserWithEmailAndPassword(email: email!, password: password!)
           .then((value) async {
-        String uid = value.user.uid;
+        String uid = value.user!.uid;
         print('uid ==>> $uid');
         Reference reference =
             FirebaseStorage.instance.ref().child('Avartar/$uid.jpg');
-        UploadTask task = reference.putFile(file);
+        UploadTask task = reference.putFile(file!);
         String urlAvatar = await (await task).ref.getDownloadURL();
         print('urlAvatar = $urlAvatar');
         Map<String, dynamic> typeData = Map();
@@ -74,21 +74,21 @@ class _UserProfileState extends State<UserProfile> {
             if (file == null) {
               normalDialod(context, 'Please chose image');
             } else if (name == null ||
-                name.isEmpty ||
+                name!.isEmpty ||
                 lastName == null ||
-                lastName.isEmpty ||
+                lastName!.isEmpty ||
                 gender == null ||
-                gender.isEmpty ||
+                gender!.isEmpty ||
                 age == null ||
-                age.isEmpty ||
+                age!.isEmpty ||
                 birth == null ||
-                birth.isEmpty ||
+                birth!.isEmpty ||
                 email == null ||
-                email.isEmpty ||
+                email!.isEmpty ||
                 password == null ||
-                password.isEmpty ||
+                password!.isEmpty ||
                 type == null ||
-                type.isEmpty) {
+                type!.isEmpty) {
               normalDialod(context, 'Have space ? Please Fill Every Blank');
             } else {
               registerThread();
@@ -113,7 +113,7 @@ class _UserProfileState extends State<UserProfile> {
         maxHeight: 800,
       );
       setState(() {
-        file = File(result.path);
+        file = File(result!.path);
       });
     } catch (e) {}
   }
@@ -144,7 +144,7 @@ class _UserProfileState extends State<UserProfile> {
     return Container(
       width: 250,
       height: 250,
-      child: file == null ? Image.network(user.imageProfile) : Image.file(file),
+      child: file == null ? Image.network(user.imageProfile!) : Image.file(file!),
     );
   }
 

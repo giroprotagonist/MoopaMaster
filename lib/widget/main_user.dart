@@ -19,9 +19,9 @@ class MainUser extends StatefulWidget {
 }
 
 class _MainUserState extends State<MainUser> {
-  String name, email;
-  double lat;
-  double long;
+  String? name, email;
+  double? lat;
+  double? long;
 
   @override
   void initState() {
@@ -34,20 +34,20 @@ class _MainUserState extends State<MainUser> {
     await Firebase.initializeApp().then((value) async {
       print('***** INITIAL sUCCESS ******');
       FirebaseAuth.instance.authStateChanges().listen((event) async {
-        String uid = event.uid;
+        String uid = event!.uid;
         print('uid = $uid');
         FirebaseFirestore.instance
             .collection('User')
             .doc(uid)
             .snapshots()
             .listen((event) {
-          user.setName(event.data()['Name']);
-          user.setEmail(event.data()['Email']);
-          user.setBirth(event.data()['Birth']);
-          user.setGender(event.data()['Gender']);
-          user.setLastName(event.data()['LastName']);
-          user.setAge(event.data()['Age']);
-          user.setImage(event.data()['UrlAvatar']);
+          user.setName(event.data()!['Name']);
+          user.setEmail(event.data()!['Email']);
+          user.setBirth(event.data()!['Birth']);
+          user.setGender(event.data()!['Gender']);
+          user.setLastName(event.data()!['LastName']);
+          user.setAge(event.data()!['Age']);
+          user.setImage(event.data()!['UrlAvatar']);
         });
       });
     });
