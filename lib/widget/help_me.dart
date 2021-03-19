@@ -163,12 +163,12 @@ class _HelpMeState extends State<HelpMe> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () => getImageCamera(),
                   child: Icon(Icons.camera_alt),
                 ),
                 Container(),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () => getImageGallery(),
                   child: Icon(Icons.photo),
                 )
@@ -200,8 +200,7 @@ class _HelpMeState extends State<HelpMe> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 75,
-              child: RaisedButton(
-                color: Colors.red[300],
+              child: ElevatedButton(
                 onPressed: () => validate(),
                 child: Text('Click Start'),
               ),
@@ -211,8 +210,7 @@ class _HelpMeState extends State<HelpMe> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 75,
-              child: RaisedButton(
-                color: Colors.yellow[300],
+              child: ElevatedButton(
                 onPressed: () => {},
                 child: Text('Art Of Safety'),
               ),
@@ -221,8 +219,7 @@ class _HelpMeState extends State<HelpMe> {
             Container(
               width: MediaQuery.of(context).size.width,
               height: 75,
-              child: RaisedButton(
-                color: Colors.green[300],
+              child: ElevatedButton(
                 onPressed: () => getLocation(),
                 child: Text('GPS of me'),
               ),
@@ -253,7 +250,7 @@ class _HelpMeState extends State<HelpMe> {
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<ListItem>> items = List();
+    List<DropdownMenuItem<ListItem>> items = [];
     for (ListItem listItem in listItems) {
       items.add(
         DropdownMenuItem(

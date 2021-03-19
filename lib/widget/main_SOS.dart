@@ -1,16 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:tongmoopa/utlity/scoped_models/app_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tongmoopa/utlity/my_style.dart';
-import 'package:tongmoopa/widget/sos_detail.dart';
 import 'package:location/location.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class MainSOS extends StatefulWidget {
@@ -161,8 +156,8 @@ class _MainSOSState extends State<MainSOS> {
                         .doc(data['Email'])
                         .update(userdata)
                         .then((value) {
-                      var Toast;
-                                            Toast.show('รับงานเรียบร้อยแล้ว', context);
+                      var toast;
+                                            toast.show('รับงานเรียบร้อยแล้ว', context);
                       checkHelpMeList();
                     });
                   },

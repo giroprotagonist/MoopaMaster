@@ -6,7 +6,7 @@ Future<Null> normalDialod(BuildContext context, String string) async {
     builder: (context) => SimpleDialog(
       title: Text(string),
       children: [
-        FlatButton(
+        TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text('OK'),
         ),

@@ -33,10 +33,10 @@ class _MainUserState extends State<MainUser> {
   Future<void> readUserData(AppModel user) async {
     await Firebase.initializeApp().then((value) async {
       print('***** INITIAL sUCCESS ******');
-      await FirebaseAuth.instance.authStateChanges().listen((event) async {
+      FirebaseAuth.instance.authStateChanges().listen((event) async {
         String uid = event.uid;
         print('uid = $uid');
-        await FirebaseFirestore.instance
+        FirebaseFirestore.instance
             .collection('User')
             .doc(uid)
             .snapshots()
@@ -160,7 +160,7 @@ class _MainUserState extends State<MainUser> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                FlatButton(
+                TextButton(
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -172,11 +172,11 @@ class _MainUserState extends State<MainUser> {
                     color: Colors.yellow,
                   ),
                 ),
-                FlatButton(
+                TextButton(
                   onPressed: null,
                   child: Icon(Icons.mail, color: Colors.yellow),
                 ),
-                FlatButton(
+                TextButton(
                   onPressed: null,
                   child: Icon(Icons.notifications, color: Colors.yellow),
                 ),
@@ -227,13 +227,13 @@ class _MainUserState extends State<MainUser> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                FlatButton(
+                TextButton(
                   onPressed: () => Navigator.push(context,
                       MaterialPageRoute(builder: (_) => UserProfile())),
                   child: Icon(Icons.people, color: Colors.yellow),
                 ),
                 Container(),
-                FlatButton(
+                TextButton(
                   onPressed: null,
                   child: Icon(Icons.settings, color: Colors.yellow),
                 ),

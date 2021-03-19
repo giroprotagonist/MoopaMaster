@@ -32,14 +32,14 @@ class SearchHome extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            FlatButton(
+            TextButton(
                 onPressed: () => Navigator.pop(context),
                 child: Icon(
                   Icons.home,
                   color: Colors.yellow,
                 )),
             Container(),
-            FlatButton(
+            TextButton(
               onPressed: null,
               child: Icon(Icons.bookmark, color: Colors.yellow),
             ),

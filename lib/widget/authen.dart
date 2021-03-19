@@ -24,9 +24,9 @@ class _AuthenState extends State<Authen> {
 
   Future<Null> checkLogin() async {
     await Firebase.initializeApp().then((value) async {
-      await FirebaseAuth.instance.authStateChanges().listen((event) async {
+      FirebaseAuth.instance.authStateChanges().listen((event) async {
         if (event != null) {
-          await FirebaseFirestore.instance
+          FirebaseFirestore.instance
               .collection('Type')
               .doc(event.uid)
               .snapshots()
@@ -107,7 +107,7 @@ class _AuthenState extends State<Authen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            FlatButton(
+            TextButton(
               onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -131,7 +131,7 @@ class _AuthenState extends State<Authen> {
     return Container(
       margin: EdgeInsets.only(top: 16),
       width: 250,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {
           if (user == null ||
               user.isEmpty ||
@@ -158,7 +158,7 @@ class _AuthenState extends State<Authen> {
           .signInWithEmailAndPassword(email: user, password: password)
           .then((value) async {
         String uid = value.user.uid;
-        await FirebaseFirestore.instance
+        FirebaseFirestore.instance
             .collection('Type')
             .doc(uid)
             .snapshots()

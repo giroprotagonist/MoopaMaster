@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
   }
 
   List<DropdownMenuItem<ListItem>> buildDropDownMenuItems(List listItems) {
-    List<DropdownMenuItem<ListItem>> items = List();
+    List<DropdownMenuItem<ListItem>> items = [];
     for (ListItem listItem in listItems) {
       items.add(
         DropdownMenuItem(
@@ -75,7 +75,7 @@ class _RegisterState extends State<Register> {
               buildEmail(),
               buildPassword(),
               buildType(),
-              buildRaisedButton(),
+              buildElevatedButton(),
             ],
           ),
         ),
@@ -83,10 +83,9 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Container buildRaisedButton() => Container(
+  Container buildElevatedButton() => Container(
         width: MediaQuery.of(context).size.width,
-        child: RaisedButton.icon(
-          color: Colors.deepOrange,
+        child: ElevatedButton.icon(
           onPressed: () {
             if (file == null) {
               normalDialod(context, 'Please chose image');

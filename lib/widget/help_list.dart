@@ -46,7 +46,7 @@ class _HelpMeListState extends State<HelpMeList> {
   }
 
   Future checkHelpMeList() async {
-    await FirebaseFirestore.instance
+    FirebaseFirestore.instance
         .collection('HelpME')
         .doc(user.userEmail)
         .snapshots()

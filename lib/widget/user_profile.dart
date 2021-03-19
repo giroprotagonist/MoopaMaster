@@ -67,10 +67,9 @@ class _UserProfileState extends State<UserProfile> {
       normalDialod(context, value.message);
     });
   }
-      Container buildRaisedButton() => Container(
+      Container buildElevatedButton() => Container(
         width: MediaQuery.of(context).size.width,
-        child: RaisedButton.icon(
-          color: Colors.deepOrange,
+        child: ElevatedButton.icon(
           onPressed: () {
             if (file == null) {
               normalDialod(context, 'Please chose image');
@@ -299,7 +298,7 @@ class _UserProfileState extends State<UserProfile> {
             buildEmail(),
             buildPassword(),
             buildType(),
-            buildRaisedButton(),
+            buildElevatedButton(),
           ],
         ),
       ),
